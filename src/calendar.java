@@ -13,21 +13,13 @@ public class calendar {
 		System.out.println("22 23 24 25 26 27 28");
 		
 		//숫자를 입력받아 해당하는 달의 최대 일수를 출력 
-		System.out.println("달을 입력하세요.");
-		
 		Scanner scan = new Scanner(System.in);
-		int a = scan.nextInt();
+		System.out.println("달을 입력하세요.");
+		int month = scan.nextInt();
 		
-		if (a == 2) {
-			System.out.printf("%d월은 28일까지 있습니다.",a);
-		}
-		else if (a%2 == 1) {
-			System.out.printf("%d월은 31일까지 있습니다.",a);
-		}
-		else {
-			System.out.printf("%d월은 30일까지 있습니다.",a);
-		}
+		int[] maxDays = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 		
+		System.out.printf("%d월은 %d일까지 있습니다.\n", month, maxDays[month-1]);
 		scan.close();
 	}
 }
