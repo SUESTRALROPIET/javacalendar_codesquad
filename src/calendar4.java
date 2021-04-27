@@ -1,6 +1,7 @@
 import java.util.Scanner;
 
 public class calendar4 {
+		//변경이 없는 것 : final static, 변수명을 대문자로 씀 :) 
 	private final static String PROMPT = "> ";
 	private static final int[] Maxdate = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 	
