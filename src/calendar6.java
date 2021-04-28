@@ -4,10 +4,17 @@ public class  calendar6 {
 	private static final int[] MAX_DAYS = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 	private static final int[] LEAP_MAX_DAYS = {31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 	
+	public boolean LEAP_YEAR(int year) {
+		if (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0))
+			return true;
+		else
+			return false;
+	}
+	
 	private final static String PARSE = "   ";
 	
 	public int getMaxDays(int year, int month) {
-		if (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0)) {
+		if (LEAP_YEAR(year)) {
 			return LEAP_MAX_DAYS[month-1];
 		}
 		else {
@@ -15,10 +22,8 @@ public class  calendar6 {
 		}
 	}
 	
-	public int WHOLE_DAYS_OF_YEAR(int year) {
-		boolean LEAP_YEAR = year % 4 == 0 && (year % 100 != 0 || year % 400 == 0);
-		
-		if (LEAP_YEAR) {
+	public int WHOLE_DAYS_OF_YEAR(int year) {		
+		if (LEAP_YEAR(year)) {
 			return 366;
 		}
 		else {
@@ -29,22 +34,21 @@ public class  calendar6 {
 	public int count_YEAR(int year) {
 		int sum = 0;
 		for (int i = 1970; i < year; i++) { 
-			sum  = sum + WHOLE_DAYS_OF_YEAR(i);
+			sum  += WHOLE_DAYS_OF_YEAR(i);
 		}
 		return (sum + 4) % 7;
 	}
 	
 	public int count_DATE(int year, int month) {
-		boolean LEAP_YEAR = year % 4 == 0 && (year % 100 != 0 || year % 400 == 0);
 		int sum = 0;
 		int sum_year = count_YEAR(year);
 		
 		for (int j = 0; j < month-1; j++ ) {
-			if (LEAP_YEAR) {
-				sum = sum + LEAP_MAX_DAYS[j];
+			if (LEAP_YEAR(year)) {
+				sum += LEAP_MAX_DAYS[j];
 			}
 			else {
-				sum = sum + MAX_DAYS[j];
+				sum += MAX_DAYS[j];
 			}
 		}
 		return (sum + sum_year) % 7;
