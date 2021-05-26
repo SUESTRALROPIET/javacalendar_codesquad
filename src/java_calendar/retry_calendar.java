@@ -2,8 +2,6 @@ package java_calendar;
 
 import java.util.Date;
 import java.util.HashMap;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 
 public class retry_calendar {
 
@@ -85,24 +83,31 @@ public class retry_calendar {
 	}
 	
 	//PlanMap에는 2개의 argument Date(키),Strig(일정)이 들어간다 :) 
-	private HashMap <Date, String> planMap;
+//	private HashMap <Date, String> planMap;
+	private HashMap <Date, PlanItem> planMap;
 	
 	//생성자 만들기  
 	//class 파일명과 동일한 메소드명으로 설정해야한다. 아니면 안됨! 
 	public retry_calendar () {
-		planMap = new HashMap<Date, String>();
+//		planMap = new HashMap<Date, String>();
+		planMap = new HashMap<Date, PlanItem>();
 	}
 	
 	//일정 저장 
-	public void registerPlan(String strdate, String text) throws ParseException {
-		Date date = new SimpleDateFormat("yyyy-mm-dd").parse(strdate);
-		planMap.put(date, text);
+	public void registerPlan(String strdate, String plan) {
+//		Date date = new SimpleDateFormat("yyyy-mm-dd").parse(strdate);
+//		planMap.put(date, text);
+		PlanItem p = new PlanItem(strdate, plan);
+		planMap.put(p.getDate(), p);
 	}
 	
-	public String searchPlan(String strdate) throws ParseException {
-		Date date = new SimpleDateFormat("yyyy-mm-dd").parse(strdate);
-		String plan = planMap.get(date);
-		return plan;
+//	public String searchPlan(String strdate) throws ParseException {
+	public PlanItem searchPlan(String strdate) {
+//		Date date = new SimpleDateFormat("yyyy-mm-dd").parse(strdate);
+		Date date = PlanItem.getDateformatString(strdate);
+//		String plan = planMap.get(date);
+//		return plan;
+		return planMap.get(date);
 	}
 	
 	public static void main(String[] args) {
