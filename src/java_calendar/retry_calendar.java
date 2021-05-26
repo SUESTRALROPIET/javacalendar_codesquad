@@ -1,7 +1,12 @@
 package java_calendar;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Scanner;
 
 public class retry_calendar {
 
@@ -86,11 +91,32 @@ public class retry_calendar {
 //	private HashMap <Date, String> planMap;
 	private HashMap <Date, PlanItem> planMap;
 	
+	private static final String SAVE_FILE = "calendar.dat";
+	
 	//생성자 만들기  
 	//class 파일명과 동일한 메소드명으로 설정해야한다. 아니면 안됨! 
+	//캘린더를 초기화하 것 
 	public retry_calendar () {
 //		planMap = new HashMap<Date, String>();
 		planMap = new HashMap<Date, PlanItem>();
+		//저장된 파일을 불러와 데이터 조회하기 
+		File f = new File(SAVE_FILE);
+		if (!f.exists())
+			return;
+		
+		try {
+			Scanner s = new Scanner(f);
+			//읽을 파일이 있다면 
+			while(s.hasNext()) {
+				String date = s.next();
+				String detail = s.next();
+				PlanItem p = new PlanItem(date, detail);
+				planMap.put(p.getDate(), p);
+			}
+			s.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	//일정 저장 
@@ -99,6 +125,20 @@ public class retry_calendar {
 //		planMap.put(date, text);
 		PlanItem p = new PlanItem(strdate, plan);
 		planMap.put(p.getDate(), p);
+		
+		//파일저장 
+		File f = new File(SAVE_FILE);
+		String item = p.saveString();
+		
+		//파일에 데이터 추가 
+		try {
+			FileWriter fw = new FileWriter(f, true);
+			fw.write(item);
+			fw.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 //	public String searchPlan(String strdate) throws ParseException {
