@@ -20,16 +20,43 @@ public class retry_prompt {
 		Scanner scan = new Scanner(System.in);
 		retry_calendar cal = new retry_calendar();
 		
-		while(true) {
+//		while(true) {
+//			System.out.println("명령 (1, 2, 3, h, q)");
+//			String cmd = scan.next();
+//			
+//			if(cmd.equals("1")) cmdRegister(scan, cal);
+//			else if(cmd.equals("2")) cmdSearch(scan, cal);
+//			else if(cmd.equals("3")) cmdCalendar(scan, cal);
+//			else if(cmd.equals("h")) printMenu();
+//			else if (cmd.equals("q")) break;
+//		}
+		
+		//Swtich 구문
+		boolean isLoop = true;
+		
+		while(isLoop) {
 			System.out.println("명령 (1, 2, 3, h, q)");
 			String cmd = scan.next();
 			
-			if(cmd.equals("1")) cmdRegister(scan, cal);
-			else if(cmd.equals("2")) cmdSearch(scan, cal);
-			else if(cmd.equals("3")) cmdCalendar(scan, cal);
-			else if(cmd.equals("h")) printMenu();
-			else if (cmd.equals("q")) break;
+			switch(cmd){
+			case "1" : 
+				cmdRegister(scan, cal);
+				break;
+			case "2" :
+				cmdSearch(scan, cal);
+				break;
+			case "3" : 
+				cmdCalendar(scan, cal);
+				break;
+			case "h" : 
+				printMenu();
+				break;
+			case "q" :
+				isLoop = false;
+				break;
+			}
 		}
+		
 		System.out.println("Bye-");
 		scan.close();
 	}
